@@ -14,7 +14,10 @@
 
     <nav class="navbar" style="background-color: #F29B2A;">
         <div class = "container-fluid">
-            <a class="navbar-brand" href="#">{{ nama }}'s WISHLIST</a>
+            <a class="navbar-brand" href="#">
+              <img src="https://cdn.discordapp.com/attachments/935244474349678633/1024974260755767296/totoro.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              {{ nama }}'s WISHLIST
+            </a>
             <a class="btn btn-danger" href="{% url 'wishlist:logout' %}" role="button">Logout</a>
         </div>
     </nav>
