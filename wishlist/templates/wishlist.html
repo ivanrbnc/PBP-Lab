@@ -14,13 +14,13 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class = "container-fluid">
-            <a class="navbar-brand" href="#">{{ nama }}</a>
+            <a class="navbar-brand" href="#">{{ nama }}'s WISHLIST</a>
             <a class="btn btn-danger" href="{% url 'wishlist:logout' %}" role="button">Logout</a>
         </div>
     </nav>
 
-    <table class="table table-striped table-bordered">
-        <tr>
+    <table class="table table-striped table-bordered border-dark">
+        <tr class="table-primary table-bordered border-dark">
         <th>Nama Barang</th>
         <th>Harga Barang</th>
         <th>Deskripsi</th>
