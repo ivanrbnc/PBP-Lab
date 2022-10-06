@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ivan's Wishlist Main</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <nav class="navbar" style="background-color: #F29B2A;">
+        <div class = "container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="https://cdn.discordapp.com/attachments/935244474349678633/1024974260755767296/totoro.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+              {{ nama }}'s WISHLIST
+            </a>
+            <a class="btn btn-danger" href="{% url 'wishlist:logout' %}" role="button">Logout</a>
+        </div>
+    </nav>
+
+    <table class="table table-striped table-bordered border-dark">
+        <tr class="table table-bordered border-dark" style="background-color:#FDF625">
+        <th>Nama Barang</th>
+        <th>Harga Barang</th>
+        <th>Deskripsi</th>
+        </tr>
+        {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+        {% for barang in list_barang %}
+            <tr>
+                <th style="background-color:#47F31C">{{barang.nama_barang}}</th>
+                <th style="background-color:#18E8EF">{{barang.harga_barang}}</th>
+                <th style="background-color:#BF4DF7">{{barang.deskripsi}}</th>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+
+    <h4>Tambah Baru</h4>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label for="title">Nama Barang</label>
+        <input type="text" id = nama_barang name="nama_barang" placeholder="nama barang" class="form-control">
+
+        <label for="harga">Harga Barang</label>
+        <input type="text" id = harga_barang name="harga_barang" placeholder="harga barang" class="form-control">
+
+        <label for="description">Deskripsi</label>
+        <input type="text" id = deskripsi name="deskripsi" placeholder="deskripsi" class="form-control">
+
+        <button type="submit" value="Submit" onclick = "tambah_wishlist()">Submit</button>
+        <script></script>
+      </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+{% endblock content %}

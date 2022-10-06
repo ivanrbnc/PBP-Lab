@@ -26,6 +26,15 @@ def show_wishlist(request):
     }
     return render(request, "wishlist.html", context)
 
+def show_ajax(request):
+    data_barang_wishlist = BarangWishlist.objects.all()
+    context = {
+        'list_barang': data_barang_wishlist,
+        'nama': str(request.user).upper(),
+        'last_login': request.COOKIES['last_login'],
+    }
+    return render(request, "wishlist_ajax.html", context)
+
 def show_xml(request):
     data = BarangWishlist.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
@@ -75,3 +84,26 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('wishlist:login'))
     response.delete_cookie('last_login')
     return response
+    
+def create_wishlist(request):
+    if request.method == "POST":
+        nama_barang = request.POST.get("nama_barang")
+        harga_barang = request.POST.get("harga_barang")
+        deskripsi = request.POST.get("deskripsi")
+
+        if (nama_barang != "" and harga_barang != 0 and deskripsi != ""):
+            creating = BarangWishlist.objects.create(nama_barang = nama_barang, harga_barang = harga_barang, deskripsi = deskripsi)
+        else:
+            data_barang_wishlist = BarangWishlist.objects.all()
+            context = {
+                'list_barang': data_barang_wishlist,
+                'nama': str(request.user).upper(),
+                'last_login': request.COOKIES['last_login'],
+                'message': 'Input ada yang salah!'
+            }
+            return render(request, "wishlist_ajax.html", context)
+
+        response = HttpResponseRedirect(reverse("todolist:show_ajax")) 
+        return response
+
+    return render(request, "wishlist_ajax.html")
